@@ -25,4 +25,15 @@ public class Expense {
 
     private String description;
 
+    public String toCsv() {
+        return String.join(",",
+                String.valueOf(id),
+                date.toString(),
+                category.toString(),
+                amount.toPlainString(),
+                description
+        );
+    }
+
+
 }
