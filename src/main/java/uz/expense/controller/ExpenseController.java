@@ -39,6 +39,7 @@ public class ExpenseController {
 
         fileService.writeToFile(expenseEntity);
 
+        fileService.readFromFile(expenseEntity.getId());
         Log.info("Success " + expenseEntity.toCsv());
 
         return "Hello from Quarkus REST " + expenseEntity.toCsv();

@@ -6,4 +6,6 @@ public interface FileService {
 
     void writeToFile(Expense expense);
 
+    void readFromFile(Long id);
+
 }
