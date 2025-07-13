@@ -1,4 +1,4 @@
-package uz.expense;
+package uz.expense.example;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;

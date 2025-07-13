@@ -1,4 +1,4 @@
-package uz.expense;
+package uz.expense.example;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
