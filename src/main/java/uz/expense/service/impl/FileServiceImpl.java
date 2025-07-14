@@ -28,31 +28,58 @@ public class FileServiceImpl implements FileService {
             outputStream.write((
                     expense.toCsv() + System.lineSeparator())
                     .getBytes(StandardCharsets.UTF_8));
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ExpenseBadException("Not able to write to file", e.getMessage());
         }
 
     }
 
     @Override
-    public void readFromFile(Long id) {
+    public String readFromFileById(Long id) {
 
         File file = new File("storage/files/weekly.txt");
 
-        try (InputStream inputStream = new FileInputStream(file)) {
-            if(!file.exists()){
+        try (BufferedReader inputStream = new BufferedReader(new FileReader(file))) {
+            if (!file.exists()) {
+                throw new ExpenseBadException("File does not exist");
+            }
+
+            String line;
+
+            // Read on byte at a time until the end of the file is reached
+            while ((line = inputStream.readLine()) != null) {
+                if(line.contains(id.toString())) {
+                    Log.info("CSV read: " + line);
+                    return line;
+                }
+            }
+
+        } catch (Exception e) {
+            Log.info("Not able to read file");
+            throw new ExpenseBadException("Not able to read from file", e.getMessage());
+        }
+
+        return "No value found";
+    }
+
+
+    @Override
+    public String readFromFile() {
+
+        File file = new File("storage/files/weekly.txt");
+
+
+        try {
+            if (!file.exists()) {
                 throw new ExpenseBadException("File does not exist");
             }
             byte[] bytes = Files.readAllBytes(file.toPath());
-            String csv = new String (bytes, StandardCharsets.UTF_8);
+            String csv = new String(bytes, StandardCharsets.UTF_8);
             Log.info("CSV read: " + csv);
-        }
-        catch (Exception e) {
 
-            Log.info("Not able to read file");
+            return csv;
 
+        } catch (IOException e) {
             throw new ExpenseBadException("Not able to read from file", e.getMessage());
         }
     }

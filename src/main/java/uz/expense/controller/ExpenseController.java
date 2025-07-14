@@ -26,10 +26,9 @@ public class ExpenseController {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
+    public StringBuilder hello() {
 
         ExpenseRequest expense = new ExpenseRequest();
-
         expense.setDate(LocalDate.now());
         expense.setAmount(new BigDecimal("20000"));
         expense.setCategory(ExpenseCategory.ENTERTAINMENT);
@@ -38,12 +37,25 @@ public class ExpenseController {
         Expense expenseEntity = expenseService.saveExpense(expense);
 
         fileService.writeToFile(expenseEntity);
+        Log.info("Successfully Written file " + expenseEntity.toCsv());
 
-        fileService.readFromFile(expenseEntity.getId());
-        Log.info("Success " + expenseEntity.toCsv());
+        // Reading from file
+        String allDataFromFile = fileService.readFromFile();
 
-        return "Hello from Quarkus REST " + expenseEntity.toCsv();
+        // Reading from file by its id
+        String fileById = fileService.readFromFileById(expenseEntity.getId());
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("\n");
+        builder.append("The Written File: ").append(expenseEntity.toCsv());
+        builder.append("\n");
+        builder.append("\n");
+        builder.append("File by id: ").append(fileById);
+        builder.append("\n");
+        builder.append("\n");
+        builder.append(allDataFromFile);
+
+        return builder;
     }
-
-
 }

@@ -25,18 +25,17 @@
         codeHaus library
 
 ----------------------------------------------------------------------------------------------
-
 Phase 2
 
 App should
-    1. Read file by its id
+    1. Read files and by its id
     2. Have upload ability
             2.1 save to database
             2.2 and write to its own file storage
-
 -------------------------------------------------------
-
-1. IN DEV: Read file by id of entity
-
-2. IN DEV: Show it to the Screen
+1. DONE: Read all data line by line
+2. DONE: Read file by id of entity
+3. DONE: Show the written file
+           Show all data written to a file
+           Show data by id from the file
 
