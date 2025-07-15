@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload - Byte vs Text Reading</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 2px dashed #007bff;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+        .radio-group {
+            margin: 10px 0;
+        }
+        .radio-group label {
+            display: inline;
+            margin-left: 8px;
+            font-weight: normal;
+        }
+        button {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>File Upload - Learning Byte vs Text Reading</h2>
+
+    <div class="info">
+        <strong>How it works:</strong>
+        <ul>
+            <li><strong>Auto-detect:</strong> Determines reading mode based on file type</li>
+            <li><strong>Byte Reading:</strong> Reads file as binary data (good for images, executables)</li>
+            <li><strong>Text Reading:</strong> Reads file as character stream (good for text files)</li>
+        </ul>
+    </div>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Choose a file:</label>
+            <input type="file" id="file" name="file" required>
+        </div>
+
+        <div class="form-group">
+            <label>Reading Mode:</label>
+            <div class="radio-group">
+                <input type="radio" id="auto" name="readMode" value="auto" checked>
+                <label for="auto">Auto-detect (recommended)</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="byte" name="readMode" value="byte">
+                <label for="byte">Force Byte Reading</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="text" name="readMode" value="text">
+                <label for="text">Force Text Reading</label>
+            </div>
+        </div>
+
+        <button type="submit">Upload & Analyze</button>
+    </form>
+</div>
+</body>
+</html>
